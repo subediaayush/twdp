@@ -100,25 +100,17 @@ def register(request):
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
 
-            # Now we save the UserProfile model instance.
             profile.save()
 
-            # Update our variable to tell the template registration was successful.
             registered = True
 
-        # Invalid form or forms - mistakes or something else?
-        # Print problems to the terminal.
-        # They'll also be shown to the user.
         else:
             print(user_form.errors, profile_form.errors)
 
-    # Not a HTTP POST, so we render our form using two ModelForm instances.
-    # These forms will be blank, ready for user input.
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    # Render the template depending on the context.
     return render(request,
                   'rango/register.html',
                   {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
